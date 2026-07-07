@@ -1,0 +1,4 @@
+pushcode/ 
+__pycache__/ 
+*.pyc 
+cnn_env/ 
