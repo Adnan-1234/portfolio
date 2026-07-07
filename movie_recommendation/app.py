@@ -14,10 +14,15 @@ try:
     model = joblib.load(MODEL_PATH)
     vectorizer = joblib.load(VECTORIZER_PATH)
     label_encoder = joblib.load(LABEL_ENCODER_PATH)
-    scaler = joblib.load(SCALER_PATH)
 except FileNotFoundError as e:
     st.error(f"Error loading files: {e}")
     st.stop()
+
+# Scaler is optional - only needed for certain model types
+try:
+    scaler = joblib.load(SCALER_PATH)
+except FileNotFoundError:
+    scaler = None
 
 # Streamlit app
 st.title("Movie Review Sentiment Analysis")
@@ -29,21 +34,10 @@ review = st.text_area("Enter Movie Review", height=200)
 # Prediction function
 def predict_sentiment(review_text):
     input_vector = vectorizer.transform([review_text])
-    if model.__class__.__name__ in ['LogisticRegression', 'SVC', 'KNeighborsClassifier']:
+    if scaler is not None and model.__class__.__name__ in ['LogisticRegression', 'SVC', 'KNeighborsClassifier']:
         input_vector = scaler.transform(input_vector)
     prediction = model.predict(input_vector)[0]
     sentiment = label_encoder.inverse_transform([prediction])[0]
     probabilities = model.predict_proba(input_vector)[0]
     confidence = max(probabilities)
     return sentiment, confidence
-
-# Predict
-if st.button("Predict"):
-    if review:
-        try:
-            sentiment, confidence = predict_sentiment(review)
-            st.success(f"Predicted Sentiment: {sentiment} (Confidence: {confidence:.4f})")
-        except Exception as e:
-            st.error(f"Error making prediction: {e}")
-    else:
-        st.error("Please enter a review")
