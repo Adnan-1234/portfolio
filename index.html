@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Adnan — AI Engineer</title>
+<meta name="description" content="Muhammad Adnan is an AI Engineer specializing in deep learning, computer vision and NLP — building models that ship as real, usable applications.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%232F5CFF%22/><text x=%2250%22 y=%2266%22 font-size=%2255%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22Arial%22>A</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F7FB;
+    --surface:#FFFFFF;
+    --surface-alt:#EEF1F9;
+    --ink:#11162B;
+    --ink-soft:#565E77;
+    --ink-faint:#8B93AC;
+    --primary:#2F5CFF;
+    --primary-dark:#1B3FD1;
+    --teal:#12B8AA;
+    --border:#E3E8F3;
+    --shadow-sm: 0 2px 8px rgba(17,22,43,0.06);
+    --shadow-md: 0 12px 32px rgba(17,22,43,0.09);
+    --shadow-lg: 0 24px 60px rgba(31,63,209,0.16);
+    --radius: 18px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Sora',sans-serif; margin:0; color:var(--ink);}
+  p{margin:0; color:var(--ink-soft); line-height:1.7;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--primary);
+    font-weight:500;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  section{padding:120px 0;}
+  @media(max-width:768px){ section{padding:80px 0;} }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:1000;
+    background:rgba(245,247,251,0.78);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:74px;
+  }
+  .logo{
+    font-family:'Sora',sans-serif; font-weight:700; font-size:19px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo-mark{
+    width:34px; height:34px; border-radius:10px;
+    background:linear-gradient(135deg, var(--primary), var(--teal));
+    display:flex; align-items:center; justify-content:center;
+    color:white; font-weight:700; font-size:15px;
+    box-shadow: var(--shadow-sm);
+  }
+  .nav-links{display:flex; gap:34px; list-style:none; margin:0; padding:0;}
+  .nav-links a{
+    font-size:14.5px; font-weight:500; color:var(--ink-soft);
+    transition:color .2s ease;
+    position:relative;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{
+    background:var(--ink); color:white !important; padding:10px 20px;
+    border-radius:100px; font-size:14px; font-weight:600;
+    box-shadow: var(--shadow-sm);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px); box-shadow:var(--shadow-md); color:white !important;}
+  .menu-btn{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px;}
+  .menu-btn span{width:22px; height:2px; background:var(--ink); display:block; border-radius:2px;}
+  .mobile-panel{display:none; flex-direction:column; gap:2px; padding:8px 28px 20px;}
+  .mobile-panel a{padding:12px 4px; font-size:15px; font-weight:500; border-top:1px solid var(--border); color:var(--ink-soft);}
+
+  @media(max-width:860px){
+    .nav-links, .nav-cta.desktop-only{display:none;}
+    .menu-btn{display:flex;}
+    header.open .mobile-panel{display:flex;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding-top:170px;
+    padding-bottom:90px;
+    display:grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap:40px;
+    align-items:center;
+  }
+  @media(max-width:900px){ .hero{grid-template-columns:1fr; padding-top:130px;} }
+
+  .hero h1{
+    font-size:clamp(34px, 5vw, 56px);
+    line-height:1.08;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    margin:18px 0 22px;
+  }
+  .hero h1 .accent{
+    background:linear-gradient(100deg, var(--primary), var(--teal));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero p.lead{font-size:17.5px; max-width:520px; margin-bottom:34px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:38px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px; border-radius:100px; font-weight:600; font-size:14.5px;
+    transition:transform .2s ease, box-shadow .2s ease;
+    cursor:pointer; border:none;
+  }
+  .btn-primary{background:var(--ink); color:white; box-shadow:var(--shadow-sm);}
+  .btn-primary:hover{transform:translateY(-3px); box-shadow:var(--shadow-md); color:white;}
+  .btn-ghost{background:var(--surface); color:var(--ink); border:1px solid var(--border);}
+  .btn-ghost:hover{transform:translateY(-3px); box-shadow:var(--shadow-sm);}
+
+  .hero-meta{display:flex; gap:28px; flex-wrap:wrap;}
+  .hero-meta div{display:flex; flex-direction:column; gap:3px;}
+  .hero-meta .num{font-family:'Sora',sans-serif; font-weight:700; font-size:22px; color:var(--ink);}
+  .hero-meta .lbl{font-size:12.5px; color:var(--ink-faint);}
+
+  /* --- 3D signature visual: layered neural-net stack --- */
+  .stage{
+    perspective:1400px;
+    display:flex; align-items:center; justify-content:center;
+    min-height:420px;
+  }
+  .stack{
+    position:relative;
+    width:320px; height:340px;
+    transform-style:preserve-3d;
+    transform: rotateX(14deg) rotateY(-18deg);
+    transition:transform .15s ease-out;
+  }
+  .layer{
+    position:absolute; left:50%; top:50%;
+    width:280px; padding:18px 20px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow: 0 20px 45px rgba(17,22,43,0.14);
+    transform-style:preserve-3d;
+    display:flex; align-items:center; gap:12px;
+  }
+  .layer .dot{width:10px; height:10px; border-radius:50%; flex-shrink:0;}
+  .layer .txt{display:flex; flex-direction:column; gap:2px;}
+  .layer .txt b{font-family:'Sora',sans-serif; font-size:13.5px; color:var(--ink);}
+  .layer .txt span{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-faint);}
+  .layer-1{ transform: translate(-50%,-50%) translateZ(60px) translateY(-96px); }
+  .layer-2{ transform: translate(-50%,-50%) translateZ(20px) translateY(-24px); }
+  .layer-3{ transform: translate(-50%,-50%) translateZ(-20px) translateY(48px); }
+  .layer-4{ transform: translate(-50%,-50%) translateZ(-60px) translateY(120px); background:linear-gradient(135deg, var(--primary), var(--primary-dark)); border:none;}
+  .layer-4 .txt b, .layer-4 .txt span{color:white;}
+  .layer-4 .dot{background:white !important;}
+
+  /* ---------- SKILLS ---------- */
+  .section-head{max-width:640px; margin-bottom:52px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,38px); margin-top:14px; font-weight:700; letter-spacing:-0.01em;}
+  .section-head p{margin-top:14px; font-size:16px;}
+
+  .skill-groups{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  @media(max-width:700px){ .skill-groups{grid-template-columns:1fr;} }
+  .skill-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:26px 28px; box-shadow:var(--shadow-sm);
+  }
+  .skill-card h3{font-size:15px; margin-bottom:16px; display:flex; align-items:center; gap:10px;}
+  .skill-card h3 .sw{width:8px; height:8px; border-radius:50%; background:var(--primary);}
+  .pill-row{display:flex; flex-wrap:wrap; gap:9px;}
+  .pill{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px;
+    padding:8px 14px; border-radius:100px; background:var(--surface-alt);
+    color:var(--ink-soft); border:1px solid var(--border);
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  @media(max-width:820px){ .proj-grid{grid-template-columns:1fr;} }
+  .proj-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:30px; box-shadow:var(--shadow-sm);
+    transition:transform .25s ease, box-shadow .25s ease;
+    transform-style:preserve-3d;
+    display:flex; flex-direction:column; height:100%;
+  }
+  .proj-card:hover{ box-shadow:var(--shadow-lg); }
+  .proj-tag{
+    align-self:flex-start;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em;
+    text-transform:uppercase; font-weight:500;
+    padding:6px 12px; border-radius:100px; margin-bottom:18px;
+  }
+  .tag-cv{background:#EAF0FF; color:var(--primary);}
+  .tag-nlp{background:#E8FBF8; color:var(--teal);}
+  .tag-ml{background:#FFF3E8; color:#C9700C;}
+  .proj-card h3{font-size:20px; margin-bottom:10px;}
+  .proj-card p{font-size:14.5px; flex-grow:1;}
+  .stack-row{display:flex; flex-wrap:wrap; gap:7px; margin:18px 0 20px;}
+  .chip{font-size:11.5px; padding:5px 10px; border-radius:7px; background:var(--surface-alt); color:var(--ink-faint); font-weight:500;}
+  .proj-links{display:flex; gap:10px;}
+  .proj-links a{
+    font-size:13.5px; font-weight:600; padding:10px 16px; border-radius:10px;
+    display:flex; align-items:center; gap:6px; transition:transform .2s ease;
+  }
+  .proj-links a:hover{transform:translateY(-2px);}
+  .link-demo{background:var(--ink); color:white;}
+  .link-code{background:var(--surface-alt); color:var(--ink); border:1px solid var(--border);}
+
+  /* ---------- EXPERIENCE / EDUCATION ---------- */
+  .exp-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:24px;}
+  @media(max-width:820px){ .exp-grid{grid-template-columns:1fr;} }
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:32px; box-shadow:var(--shadow-sm);
+  }
+  .timeline-item{display:flex; gap:20px;}
+  .tl-rail{display:flex; flex-direction:column; align-items:center;}
+  .tl-dot{width:14px; height:14px; border-radius:50%; background:var(--primary); box-shadow:0 0 0 5px #EAF0FF; margin-top:4px;}
+  .tl-line{flex-grow:1; width:2px; background:var(--border); margin-top:6px;}
+  .role-row{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; margin-bottom:6px;}
+  .role-row h3{font-size:18px;}
+  .role-row span{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint);}
+  .company{color:var(--primary); font-weight:600; font-size:14px; margin-bottom:12px;}
+  .badge-cert{
+    margin-top:20px; display:flex; align-items:center; gap:12px;
+    padding:14px 16px; background:var(--surface-alt); border-radius:12px;
+  }
+  .badge-cert .ic{width:38px; height:38px; border-radius:10px; background:linear-gradient(135deg,var(--primary),var(--teal)); flex-shrink:0; display:flex; align-items:center; justify-content:center; color:white; font-size:16px;}
+  .badge-cert b{font-size:13.5px; display:block;}
+  .badge-cert span{font-size:12px; color:var(--ink-faint);}
+
+  .edu-degree{font-size:19px; font-weight:700; font-family:'Sora',sans-serif; margin-bottom:6px;}
+  .edu-school{color:var(--primary); font-weight:600; font-size:14.5px; margin-bottom:4px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-card{
+    background:linear-gradient(135deg, var(--ink) 0%, #1B2144 100%);
+    border-radius:24px; padding:64px 48px; text-align:center;
+    box-shadow:var(--shadow-lg);
+  }
+  .contact-card h2{color:white; font-size:clamp(26px,4vw,40px);}
+  .contact-card p{color:#B7BEDB; max-width:520px; margin:16px auto 34px; font-size:16px;}
+  .contact-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .contact-row a{
+    display:flex; align-items:center; gap:8px;
+    background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14);
+    color:white; padding:13px 22px; border-radius:100px; font-size:14px; font-weight:500;
+    transition:transform .2s ease, background .2s ease;
+  }
+  .contact-row a:hover{transform:translateY(-3px); background:rgba(255,255,255,0.16);}
+  .contact-row a.primary{background:white; color:var(--ink); font-weight:700;}
+
+  footer{padding:36px 0 50px; text-align:center;}
+  footer p{font-size:13px; color:var(--ink-faint);}
+
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <nav class="wrap">
+    <div class="logo"><div class="logo-mark">MA</div>Adnan</div>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta desktop-only">Let's talk</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div>
+        <img src="195428491.jpg" alt="Muhammad Adnan" style="width:120px; height:120px; border-radius:50%; object-fit:cover; margin-bottom:20px; box-shadow:var(--shadow-md); border:3px solid var(--surface);">
+      <div class="eyebrow">AI Engineer · Lahore, Pakistan</div>
+      <h1>I build AI models that <span class="accent">leave the notebook</span> and ship.</h1>
+      <p class="lead">I'm Muhammad Adnan — I train CNNs for medical imaging, build NLP pipelines for real text problems, and turn all of it into applications people can actually open and use, not just numbers in a report.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+      <div class="hero-meta">
+        <div><span class="num">5</span><span class="lbl">Deployed apps</span></div>
+        <div><span class="num">2</span><span class="lbl">CNN vision models</span></div>
+        <div><span class="num">BSCS</span><span class="lbl">Minhaj University Lahore</span></div>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="stack" id="stack">
+        <div class="layer layer-1"><div class="dot" style="background:#2F5CFF"></div><div class="txt"><b>Input</b><span>image / text tensor</span></div></div>
+        <div class="layer layer-2"><div class="dot" style="background:#12B8AA"></div><div class="txt"><b>Conv + Dense layers</b><span>feature extraction</span></div></div>
+        <div class="layer layer-3"><div class="dot" style="background:#C9700C"></div><div class="txt"><b>Training loop</b><span>backprop · optimize</span></div></div>
+        <div class="layer layer-4"><div class="dot"></div><div class="txt"><b>Prediction</b><span>shipped to Streamlit</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Toolkit</div>
+      <h2>What I actually build with</h2>
+      <p>The stack I reach for most, grouped by what it's used for rather than a flat list.</p>
+    </div>
+    <div class="skill-groups">
+      <div class="skill-card reveal">
+        <h3><span class="sw"></span>Languages &amp; Data</h3>
+        <div class="pill-row">
+          <span class="pill">Python</span><span class="pill">SQL</span><span class="pill">Pandas</span><span class="pill">NumPy</span><span class="pill">Data Analysis</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="sw"></span>Machine Learning &amp; Deep Learning</h3>
+        <div class="pill-row">
+          <span class="pill">scikit-learn</span><span class="pill">TensorFlow</span><span class="pill">PyTorch</span><span class="pill">XGBoost</span><span class="pill">CNNs</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="sw"></span>AI Systems &amp; NLP</h3>
+        <div class="pill-row">
+          <span class="pill">AI Engineering</span><span class="pill">Agentic AI</span><span class="pill">NLP</span><span class="pill">LLMs</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="sw"></span>Shipping</h3>
+        <div class="pill-row">
+          <span class="pill">Streamlit</span><span class="pill">Backend Development</span><span class="pill">Git / GitHub</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Selected work</div>
+      <h2>Five models, five real interfaces</h2>
+      <p>Each one is trained, packaged and deployed — click through to try the live app or read the code.</p>
+    </div>
+    <div class="proj-grid">
+
+      <div class="proj-card reveal">
+        <span class="proj-tag tag-cv">Computer Vision</span>
+        <h3>Brain Tumor Detection</h3>
+        <p>A convolutional neural network built from scratch to classify MRI scans by tumor type, covering preprocessing, augmentation and inference in one pipeline.</p>
+        <div class="stack-row"><span class="chip">CNN</span><span class="chip">TensorFlow / Keras</span><span class="chip">Streamlit</span></div>
+        <div class="proj-links">
+          <a class="link-demo" href="https://portfolio-gzzkxh59vnpxz6yadic4ue.streamlit.app/" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="link-code" href="https://github.com/Adnan-1234/portfolio/tree/main/brain" target="_blank" rel="noopener">Code</a>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <span class="proj-tag tag-cv">Computer Vision</span>
+        <h3>Skin Cancer Classifier</h3>
+        <p>CNN-based image classifier that flags skin lesions as malignant or benign, built to test how far a compact conv-net can get on a medical imaging task.</p>
+        <div class="stack-row"><span class="chip">CNN</span><span class="chip">TensorFlow</span><span class="chip">Image Classification</span></div>
+        <div class="proj-links">
+          <a class="link-demo" href="https://portfolio-n9q9qjantnkxmqfmna5wyu.streamlit.app/" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="link-code" href="https://github.com/Adnan-1234/portfolio/tree/main/train_cancer" target="_blank" rel="noopener">Code</a>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <span class="proj-tag tag-nlp">NLP</span>
+        <h3>Movie Review Sentiment</h3>
+        <p>Takes a raw movie review and predicts whether it reads positive or negative, using TF-IDF features feeding a classical ML classifier.</p>
+        <div class="stack-row"><span class="chip">NLP</span><span class="chip">TF-IDF</span><span class="chip">scikit-learn</span></div>
+        <div class="proj-links">
+          <a class="link-demo" href="https://portfolio-v56aabdg8kctfq4nycfzuz.streamlit.app/" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="link-code" href="https://github.com/Adnan-1234/portfolio/tree/main/movie_recommendation" target="_blank" rel="noopener">Code</a>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <span class="proj-tag tag-nlp">NLP</span>
+        <h3>Resume Screening</h3>
+        <p>Parses resumes and scores them against a role description, automating the first pass recruiters usually do by hand.</p>
+        <div class="stack-row"><span class="chip">NLP</span><span class="chip">Text Processing</span><span class="chip">Automation</span></div>
+        <div class="proj-links">
+          <a class="link-demo" href="https://portfolio-cu4gynjcsifqqrhtvbruny.streamlit.app/" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="link-code" href="https://github.com/Adnan-1234/portfolio/tree/main/resume_screening" target="_blank" rel="noopener">Code</a>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <span class="proj-tag tag-ml">Machine Learning</span>
+        <h3>Crop Recommendation System</h3>
+        <p>Suggests the best crop for a plot of land from soil nutrients, pH and climate readings, wrapped in a simple form-based interface.</p>
+        <div class="stack-row"><span class="chip">scikit-learn</span><span class="chip">Classification</span><span class="chip">Streamlit</span></div>
+        <div class="proj-links">
+          <a class="link-demo" href="https://portfolio-ev5gip6ct5wt6kk3zet6jf.streamlit.app/" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="link-code" href="https://github.com/Adnan-1234/portfolio/tree/main/crop_recommendation" target="_blank" rel="noopener">Code</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE + EDUCATION -->
+  <section id="experience" class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Background</div>
+      <h2>Experience &amp; education</h2>
+    </div>
+    <div class="exp-grid">
+      <div class="card reveal">
+        <div class="timeline-item">
+          <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div>
+            <div class="role-row"><h3>AI Intern</h3><span>Jan 2025 – Apr 2025</span></div>
+            <div class="company">BAKSORBIT</div>
+            <p>Built NLP-based chatbot solutions covering text preprocessing, tokenization and intent recognition, and worked with the team on code reviews to improve model performance.</p>
+            <div class="badge-cert">
+              <div class="ic">✓</div>
+              <div><b>Certificate of Internship</b><span>Issued &amp; verified by BAKSORBIT HR</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="eyebrow" style="margin-bottom:14px;">Education</div>
+        <div class="edu-degree">BSCS</div>
+        <div class="edu-school">Minhaj University Lahore</div>
+        <p style="font-size:14px;">Bachelor of Science in Computer Science.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="wrap">
+    <div class="contact-card reveal">
+      <div class="eyebrow" style="color:#8FA2FF;">Open to work</div>
+      <h2>Let's build something that ships.</h2>
+      <p>Freelance projects, internships, or full-time AI engineering roles — reach out and I'll get back to you quickly.</p>
+      <div class="contact-row">
+        <a class="primary" href="https://wa.me/923204579401" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="tel:+923204579401">+92 320 4579401</a>
+        <a href="https://www.linkedin.com/in/adnan-ansari939" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/Adnan-1234" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Designed &amp; built by Muhammad Adnan.</p>
+</footer>
+
+<script>
+  // mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const header = document.getElementById('header');
+  menuBtn.addEventListener('click', () => header.classList.toggle('open'));
+  document.querySelectorAll('.mobile-panel a').forEach(a => a.addEventListener('click', () => header.classList.remove('open')));
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // 3D hero stack tilt on mouse move (desktop only)
+  const stage = document.querySelector('.stage');
+  const stack = document.getElementById('stack');
+  if (window.matchMedia('(pointer: fine)').matches && stage && stack) {
+    stage.addEventListener('mousemove', (e) => {
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      stack.style.transform = `rotateX(${14 - y * 18}deg) rotateY(${-18 + x * 26}deg)`;
+    });
+    stage.addEventListener('mouseleave', () => {
+      stack.style.transform = 'rotateX(14deg) rotateY(-18deg)';
+    });
+  }
+</script>
+</body>
+</html>
